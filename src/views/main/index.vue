@@ -1,0 +1,7 @@
+<script setup lang="ts"></script>
+
+<template>个人中心</template>
+
+<style lang="scss">
+@import '@/style/home/index.scss'
+</style>
