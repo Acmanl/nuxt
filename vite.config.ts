@@ -30,5 +30,8 @@ export default defineConfig({
         additionalData: `@import "@/style/variable.scss";`
       }
     }
+  },
+  optimizeDeps: {
+    include: ["element-plus/lib/locale/lang/zh-cn","element-plus/lib/locale/lang/en" ]
   }
 })
