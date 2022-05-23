@@ -1,12 +1,16 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
 import {ref} from 'vue'
+import { useI18n } from 'vue-i18n'
 import zhCn from 'element-plus/lib/locale/lang/zh-cn'
 import En from 'element-plus/lib/locale/lang/en'
+import {Language} from 'element-plus/lib/locale' // 语言包类型
 const router = useRouter()
-const locale = ref(zhCn)
-const changeLang = (langType: any) => {
+const {locale: localeI18n} = useI18n()
+const locale = ref<Language>(zhCn)
+const changeLang = (langType: Language) => {
   locale.value = langType
+  localeI18n.value = langType.name
 }
 </script>
 
