@@ -17,9 +17,10 @@
     ],
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
     "paths": {
-      "Utils": [
-        "./src/utils"
+      "@/*": [
+        "src/*"
       ]
     }
   },
