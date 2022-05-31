@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { getRoomLists } from '@/api/index'
+import { getRoomLists, facthRoomList } from '@/api/index'
 import { useI18n } from 'vue-i18n'
 import { ref } from 'vue'
 import indexDB from '@/utils/indexDB'
@@ -8,27 +8,30 @@ const value1 = ref('')
 
 // 数据库相关操作
 const db = new indexDB('db')
-db.openStore('room', 'id', ['name', 'age'])
+// db.openStore('room', 'id', ['name', 'age'])
 // AddAndUpdate
 
 function add() {
-  db.updateItme('room', {
-    id: 1,
-    name: '32132132432',
-    age: 18
-  })
+  // db.updateItme('room', {
+  //   id: 1,
+  //   name: '32132132432',
+  //   age: 18
+  // })
 }
 function deletes(key: number | string) {
-  db.deleteItme('room', key)
+  // db.deleteItme('room', key)
 }
 function getList() {
-  db.getList('room')
+  // db.getList('room')
 }
 function getItem(key: number | string) {
-  db.getItem('room', key)
+  // db.getItem('room', key)
 }
 const getRoomList = () => {
-  getRoomLists()
+  getRoomLists().then(res => {
+    console.log(res)
+  })
+  facthRoomList()
 }
 getRoomList()
 </script>

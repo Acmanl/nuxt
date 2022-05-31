@@ -14,10 +14,12 @@ export default class DB {
         console.log('数据库打开成功')
         this.db = event.target.result
         console.log(event)
+        resolve(true)
       }
       request.onerror = (event) => {
         console.log('数据库打开失败')
         console.log(event)
+        reject()
       }
       request.onupgradeneeded = (event: any) => {
         console.log('数据库升级成功')
@@ -45,31 +47,40 @@ export default class DB {
       ...data,
       updateTIme: new Date().getTime()
     })
-    request.onsuccess = (event: any) => {
-      console.log('数据写入成功')
-      console.log(event)
+    return new Promise((resolve, reject) => {
+      request.onsuccess = (event: any) => {
+        console.log('数据写入成功')
+        console.log(event)
+        resolve(event)
 
-    }
-    request.onerror = (event: any) => {
-      console.log('数据写入失败')
-      console.log(event)
+      }
+      request.onerror = (event: any) => {
+        console.log('数据写入失败')
+        console.log(event)
+        reject(event)
 
-    }
+      }
+    })
   }
   // 删除数据
   deleteItme(storeName: string, key: number | string) {
     const store = this.db.transaction([storeName], 'readwrite').objectStore(storeName)
     const request = store.delete(key)
-    request.onsuccess = (event: any) => {
-      console.log('数据删除成功')
-      console.log(event)
-
-    }
-    request.onerror = (event: any) => {
-      console.log('数据删除失败')
-      console.log(event)
-
-    }
+    return new Promise((resolve, reject) => {
+      request.onsuccess = (event: any) => {
+        console.log('数据删除成功')
+        console.log(event)
+        resolve(event)
+  
+      }
+      request.onerror = (event: any) => {
+        console.log('数据删除失败')
+        console.log(event)
+        reject(event)
+  
+      }
+    })
+    
   }
 
   // 查询所有数据
@@ -80,10 +91,11 @@ export default class DB {
       request.onsuccess = (event: any) => {
         console.log('所有数据查询成功')
         console.log(event)
-
+        resolve(event.target.result)
       }
       request.onerror = (event: any) => {
         console.log('所有数据查询失败')
+        reject(event)
         console.log(event)
 
       }
@@ -93,17 +105,19 @@ export default class DB {
   getItem(storeName: string, key: number | string) {
     const store = this.db.transaction(storeName).objectStore(storeName)
     const request = store.get(key)
-    request.onsuccess = (event: any) => {
-      console.log('单条数据查询成功')
-      console.log(event)
+    return new Promise((resolve, reject) => {
+      request.onsuccess = (event: any) => {
+        console.log('单条数据查询成功')
+        console.log(event)
+        resolve(event.target.result)
+      }  
+      request.onerror = (event: any) => {
+        console.log('单条数据查询失败')
+        console.log(event)
+        reject(event)
 
-    }
-    request.onerror = (event: any) => {
-      console.log('单条数据查询失败')
-      console.log(event)
+      }
 
-    }
+    })
   }
-
-
 }
